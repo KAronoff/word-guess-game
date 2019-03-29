@@ -70,10 +70,13 @@ document.onkeyup = function (event){
   // the user guess, then logging the userGuess
   var playerGuess = event.key;
   
-  letterGuess.push(playerGuess);
-  for (var i = 1; i <= 10; i++){
-    document.getElementById("lettersGuessed").innerHTML(letterGuess.indexOf(i))
-  }
+  // function arrayPush (){
+  //   var letterDocument = letterGuess.push(playerGuess);
+  //   document.getElementById("letterGuesses").innerHTML(`you've pressed ${letterGuess}`);
+  // }
+
+  // arrayPush();
+
   console.log(`you pressed ${playerGuess}`);
   // counting the number of times that the function has been called
   numGuesses++;

@@ -1,22 +1,23 @@
 // variables: playerWins, playerLoses, reminingGuesses, 
 
-var playerWins = 0;
-var playerLoses = 0;
-
+var playerWins;
+var playerLoses;
+var reminingGuesses;
 
 var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
 "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 var computerGuess;
+var numGuesses
+var letterGuess = [];
 
-
-document.getElementById("chooseLetter").onclick = function() {compGuessFunc()};
-
-//  function being used on the "onclick" key word above starts the game
+//  computer choice function
 function compGuessFunc (){
 
   // printing the original scores etc.
-
+  
+  remainingGuesses = 10;
+  document.getElementById("remainingGuesses").innerHTML= remainingGuesses;
   document.getElementById("playerWin").innerHTML= playerWins;
   document.getElementById("playerLoses").innerHTML= playerLoses;
 
@@ -34,14 +35,45 @@ function compGuessFunc (){
   console.log(`computer guess ${computerGuess}`)
 
 }
+// craeting the reset button
 
-var numGuesses = 0;
+function resetFunc (){
+  playerWins = 0;
+  playerLoses = 0;
+  remainingGuesses = 8;
+  numGuesses = 0;
+  document.getElementById("remainingGuesses").innerHTML= remainingGuesses;
+  document.getElementById("playerWin").innerHTML= playerWins;
+  document.getElementById("playerLoses").innerHTML= playerLoses;
+  compGuessFunc();
+}
+// the actual button
+document.getElementById("reset").onclick = function() {resetFunc()};
 
+// creating a new round button
+// new round function
+function newRoundFunc (){
+  remainingGuesses = 8;
+  numGuesses = 0;
+  compGuessFunc();
+  document.getElementById("remainingGuesses").innerHTML= remainingGuesses;
+  document.getElementById("reset").onclick = function() {resetFunc()};
+  document.getElementById("winLoseIcon").innerHTML=" ";
+}
+
+// new round button
+document.getElementById("chooseLetter").onclick = function() {newRoundFunc()};
+
+
+// game play
 document.onkeyup = function (event){
   // the user guess, then logging the userGuess
   var playerGuess = event.key;
   
-
+  letterGuess.push(playerGuess);
+  for (var i = 1; i <= 10; i++){
+    document.getElementById("lettersGuessed").innerHTML(letterGuess.indexOf(i))
+  }
   console.log(`you pressed ${playerGuess}`);
   // counting the number of times that the function has been called
   numGuesses++;
@@ -50,18 +82,24 @@ document.onkeyup = function (event){
   // writing down the guesses remaining 
 
   if (numGuesses <= 8){
-    var remainingGuesses = 8 - numGuesses;
+    remainingGuesses = 8 - numGuesses;
 
   document.getElementById("remainingGuesses").innerHTML= remainingGuesses;
   }
   // game rules
 
   if (computerGuess === playerGuess){
+    playerWins++;
+    document.getElementById("playerWin").innerHTML=playerWins;
     document.getElementById("winLoseIcon").innerHTML="you win man";
+    console.log(playerWins);
+
+
   }
   else if (numGuesses === 8){
+    playerLoses++;
+    document.getElementById("playerLoses").innerHTML=playerLoses;
     document.getElementById("winLoseIcon").innerHTML="you lose man";
-    return;
 
   }
 }

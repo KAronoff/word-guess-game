@@ -84,8 +84,8 @@ document.onkeyup = function (event){
   console.log(`this is the num of guesses ${numGuesses}`);
   // writing down the guesses remaining 
 
-  if (numGuesses <= 8){
-    remainingGuesses = 8 - numGuesses;
+  if (numGuesses <= 10){
+    remainingGuesses = 10 - numGuesses;
 
   document.getElementById("remainingGuesses").innerHTML= remainingGuesses;
   }
